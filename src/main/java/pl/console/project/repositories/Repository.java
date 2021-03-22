@@ -9,11 +9,11 @@ import java.io.IOException;
 public class Repository {
 
     private final ListMeal listMeal;
-
     private static Repository INSTANCE;
+    private static final String DATA_BASE_PATH = "src/main/resources/meal list.json";
 
     private Repository() {
-        listMeal = readFile("src/main/resources/meal list.json");
+        listMeal = readFile(DATA_BASE_PATH);
     }
 
     public static Repository getInstance() {
