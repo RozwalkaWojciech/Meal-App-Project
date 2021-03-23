@@ -20,8 +20,6 @@ public class ListMeal {
 
     @Override
     public String toString() {
-        return "ListMeal{" +
-                "listMeals=" + listMeals +
-                '}'+"\n";
+        return "\n\u001b[101m>>>>>>>>>> List of Meals <<<<<<<<<<\u001b[0m\n\n" + listMeals + "\n";
     }
 }
