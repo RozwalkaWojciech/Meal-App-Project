@@ -85,12 +85,13 @@ public class Meal {
 
     @Override
     public String toString() {
-        return "Meal{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                +'\'' + ", ingredients=" + ingredients +
-                ", measures=" + measures +
-                '}' + ", instruction='" + instruction + "\n";
+        return "\n" +
+                "\u001b[34mID: \u001b[0m" + id + "\n" +
+                "\u001b[34mMeal name: \u001b[0m" + name + "\n" +
+                "\u001b[34mCategory: \u001b[0m" + category + "\n" +
+                "\u001b[34mIngredients: \u001b[0m" + ingredients + "\n" +
+                "\u001b[34mMeasures: \u001b[0m" + measures + "\n" +
+                "\u001b[102mInstruction:\u001b[0m" + "\n\u001b[32m" + instruction + "\u001b[0m" +
+                "\n";
     }
 }
