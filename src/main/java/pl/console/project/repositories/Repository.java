@@ -9,11 +9,14 @@ import java.io.IOException;
 public class Repository {
 
     private final ListMeal listMeal;
+    private final ListMeal favoriteListMeal;
     private static Repository INSTANCE;
     private static final String DATA_BASE_PATH = "src/main/resources/meal list.json";
+    private static final String FAVORITE_MEAL_LIST_PATH = "src/main/resources/favorite meal list.json";
 
     private Repository() {
         listMeal = readFile(DATA_BASE_PATH);
+        favoriteListMeal = readFile(FAVORITE_MEAL_LIST_PATH);
     }
 
     public static Repository getInstance() {
@@ -25,6 +28,10 @@ public class Repository {
 
     public ListMeal getListMeal() {
         return listMeal;
+    }
+
+    public ListMeal getFavoriteListMeal() {
+        return favoriteListMeal;
     }
 
     static ListMeal readFile(String path) {
