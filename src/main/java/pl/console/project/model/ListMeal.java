@@ -49,11 +49,19 @@ public class ListMeal {
     }
 
     public void addMealToList(Meal meal) {
-        listMeals.add(meal);
+        for (Meal existingMeal : listMeals){
+            if ((!existingMeal.getName().equals(meal.getName())) && (!existingMeal.getId().equals(meal.getId()))){
+                listMeals.add(meal);
+            }
+        }
     }
 
     public void removeMealFromList(Meal meal) {
-        listMeals.remove(meal);
+        for (Meal existingMeal : listMeals){
+            if (existingMeal.getName().equals(meal.getName())){
+                listMeals.remove(meal);
+            }
+        }
     }
 
     @Override
