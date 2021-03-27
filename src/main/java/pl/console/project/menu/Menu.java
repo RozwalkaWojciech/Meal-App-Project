@@ -6,6 +6,7 @@ Main class in project to select choose on with option user wanna choose
 package pl.console.project.menu;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.slf4j.Logger;
@@ -33,8 +34,7 @@ public class Menu {
      */
     public void method() {
         //STDOUT.info(ANSI_GREEN + "this text is green!" + ANSI_RESET);
-
-       // String leftAlignFormat = "| %-15s | %-4d |%n";
+        // String leftAlignFormat = "| %-15s | %-4d |%n";
         System.out.format(ANSI_WHITE + "+-----------------+------+%n");
         System.out.format("| WELCOME TO             |%n");
         System.out.format("| (®) Meal App Project   |%n");
@@ -43,18 +43,18 @@ public class Menu {
         System.out.format("+-----------------+------+%n");
         System.out.format("+-----------------+------+%n" + ANSI_RESET);
 
-
-        System.out.println(ANSI_GREEN+"Choose from below choices"+ ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Choose from below choices" + ANSI_RESET);
         System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW+"1 - Manage data base Meal");
+        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
         System.out.println("2 - Manage favourites Meal");
         System.out.println("3 - Configuration");
-        System.out.println("9 - Quit"+ANSI_RESET);
+        System.out.println("9 - Quit" + ANSI_RESET);
         System.out.println("-------------------------\n");
 
         Scanner scanner = new Scanner(System.in);
         int choice = 0;
-        do {
+        while (choice != 9) {
+
             try {
                 choice = scanner.nextInt();
                 switch (choice) {
@@ -62,11 +62,16 @@ public class Menu {
                     case 2 -> System.out.println("Manage favourites Meal");
                     case 3 -> System.out.println("3 - Configuration");
                     case 9 -> System.out.println("End of the program");
-                    default -> System.out.println("please choose correct option");
+                    //default -> System.out.println("please choose correct option");
                 }
-        } catch (Exception exc) {
-            System.out.println(ANSI_RED+"Please choose correct option"+ANSI_RESET);
+
+            } catch (InputMismatchException ignored) {
+                System.out.println(ANSI_RED+"wrong parameter"+ ANSI_RESET);
+                break;
+                //TODO: check why the program falls into recursion without "break"
+            }
         }
-        } while (choice != 9);
     }
 }
+
+
