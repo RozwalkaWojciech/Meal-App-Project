@@ -46,4 +46,16 @@ public class Repository {
         }
         return listMeal;
     }
+
+    static ListMeal writeFile(String path) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ListMeal favoriteListMeal = null;
+
+        try {
+            objectMapper.writeValue(new File("src/main/resources/favorite meal list.json"), favoriteListMeal);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return favoriteListMeal;
+    }
 }
