@@ -28,9 +28,21 @@ public class Menu {
     For example, using the above constants, you could make the following red text output on supported terminals:
     System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
      **/
+
+    public void menu(){
+        System.out.println("-------------------------\n");
+        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
+        System.out.println("2 - Manage favourites Meal");
+        System.out.println("3 - Configuration");
+        System.out.println("9 - Quit" + ANSI_RESET);
+        System.out.println("-------------------------\n");
+        System.out.println(ANSI_CYAN+"Please choose an interesting option and press 'enter'"+ANSI_RESET);
+    }
+
     public void method() {
         //STDOUT.info(ANSI_GREEN + "this text is green!" + ANSI_RESET);
         // String leftAlignFormat = "| %-15s | %-4d |%n";
+
         System.out.format(ANSI_WHITE + "+-----------------+------+%n");
         System.out.format("| WELCOME TO             |%n");
         System.out.format("| (®) Meal App Project   |%n");
@@ -38,7 +50,6 @@ public class Menu {
         System.out.format("| Authors:xyz            |%n");
         System.out.format("+-----------------+------+%n");
         System.out.format("+-----------------+------+%n" + ANSI_RESET);
-
         //System.out.println(ANSI_GREEN + "Choose from below choices" + ANSI_RESET);
         System.out.println("-------------------------\n");
         System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
@@ -59,7 +70,11 @@ public class Menu {
                     case "2" -> System.out.println("Manage favourites Meal");
                     case "3" -> System.out.println("3 - Configuration");
                     case "9" -> System.out.println("End of the program");
-                    default -> System.out.println(ANSI_RED+"please choose correct option"+ANSI_RESET);
+                    default -> {
+                        menu();
+                        System.out.println(ANSI_RED+"Please choose correct option"+ANSI_RESET);
+                        //default -> System.out.println(ANSI_RED+"Please choose correct option"+ANSI_RESET);
+                    }
                 }
 
             } catch (InputMismatchException ignored) {
@@ -69,4 +84,12 @@ public class Menu {
         }
         scanner.close();
     }
+   /** public String numberToString(String s) {
+
+       // s.substring(1,s.length()-1);
+        System.out.println(s);
+       return s.substring(1,s.length()-1);
+
+    }**/
+
 }
