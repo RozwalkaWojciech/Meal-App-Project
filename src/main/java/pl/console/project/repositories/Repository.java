@@ -2,9 +2,11 @@ package pl.console.project.repositories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.console.project.model.ListMeal;
+import pl.console.project.model.Meal;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Repository {
 
@@ -25,6 +27,26 @@ public class Repository {
 
     public ListMeal getListMeal() {
         return listMeal;
+    }
+
+    public Meal findMealByName(String name) {
+        return listMeal.findMealByName(name);
+    }
+
+    public List<Meal> findMealByIngredient(String ingredient) {
+        return findMealByIngredient(ingredient);
+    }
+
+    public List<Meal> findMealByCategory(String category) {
+        return listMeal.findMealByCategory(category);
+    }
+
+    public void addMealToList(Meal meal) {
+        listMeal.addMealToList(meal);
+    }
+
+    public void removeMealFromList(Meal meal) {
+        listMeal.removeMealFromList(meal);
     }
 
     static ListMeal readFile(String path) {
