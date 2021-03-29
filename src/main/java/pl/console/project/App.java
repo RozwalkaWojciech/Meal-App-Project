@@ -11,8 +11,7 @@ public class App {
     public static void main(String[] args) {
         Menu menu = new Menu();
         menu.method();
-            //menu.numberToString("słowo");
-        //STDOUT.info("Hello!");
+           //STDOUT.info("Hello!");
 
     }
 }

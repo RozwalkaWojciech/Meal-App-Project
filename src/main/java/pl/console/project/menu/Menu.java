@@ -84,12 +84,4 @@ public class Menu {
         }
         scanner.close();
     }
-   /** public String numberToString(String s) {
-
-       // s.substring(1,s.length()-1);
-        System.out.println(s);
-       return s.substring(1,s.length()-1);
-
-    }**/
-
-}
+   }
