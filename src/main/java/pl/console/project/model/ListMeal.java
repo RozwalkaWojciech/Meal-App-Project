@@ -45,7 +45,7 @@ public class ListMeal {
         return mealsCategoryList;
     }
 
-    public List<Meal> findMealByIngredient(String ingredient) { // shift+f6
+    public List<Meal> findMealByIngredient(String ingredient) {
         List<Meal> mealsIngredientList = new LinkedList<>();
         for (Meal meal : listMeals) {
             if (meal.getIngredients().contains(ingredient)) {
@@ -56,16 +56,16 @@ public class ListMeal {
     }
 
     public void addMealToList(Meal meal) {
-        for (Meal existingMeal : listMeals){
-            if ((!existingMeal.getName().equals(meal.getName())) && (!existingMeal.getId().equals(meal.getId()))){
+        for (Meal existingMeal : listMeals) {
+            if ((!existingMeal.getName().equals(meal.getName())) && (!existingMeal.getId().equals(meal.getId()))) {
                 listMeals.add(meal);
             }
         }
     }
 
     public void removeMealFromList(Meal meal) {
-        for (Meal existingMeal : listMeals){
-            if (existingMeal.getName().equals(meal.getName())){
+        for (Meal existingMeal : listMeals) {
+            if (existingMeal.getName().equals(meal.getName())) {
                 listMeals.remove(meal);
             }
         }

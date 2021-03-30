@@ -32,7 +32,6 @@ public class Repository {
         return listMeal;
     }
 
-    //<<<<<<< HEAD
     public Meal findMealByName(String name) {
         return listMeal.findMealByName(name);
     }
@@ -53,8 +52,7 @@ public class Repository {
         listMeal.removeMealFromList(meal);
     }
 
-    //=======
-    public Meal findFavoriteMealByName(String name) {
+    public Meal findFavMealByName(String name) {
         return favoriteListMeal.findMealByName(name);
     }
 
@@ -77,13 +75,10 @@ public class Repository {
     public void removeMealFromFavorites(Meal meal) {
         favoriteListMeal.removeMealFromList(meal);
     }
-//>>>>>>> origin/MarcinKozak
 
     static ListMeal readFile(String path) {
-
         ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = null;
-
         try {
             listMeal = objectMapper.readValue(new File(path), ListMeal.class);
         } catch (IOException e) {
@@ -92,15 +87,12 @@ public class Repository {
         return listMeal;
     }
 
-    static ListMeal writeFile(String path) {
+    static void writeFile(String path, ListMeal list) {
         ObjectMapper objectMapper = new ObjectMapper();
-        ListMeal favoriteListMeal = null;
-
         try {
-            objectMapper.writeValue(new File("src/main/resources/favorite meal list.json"), favoriteListMeal);
+            objectMapper.writeValue(new File(path), list);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return favoriteListMeal;
     }
 }
