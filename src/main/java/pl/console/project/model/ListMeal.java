@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ListMeal {
@@ -20,13 +21,19 @@ public class ListMeal {
     }
 
     public Meal findMealByName(String name) {
-        for (Meal meal : listMeals) {
-            if (meal.getName().equals(name)) {
-                return meal;
-            }
-        }
-        return null;
+        Optional<Meal> meal = listMeals.stream().filter(element -> element.getName().equals(name)).findFirst();
+        return meal.orElseThrow(() -> new RuntimeException("Meal was not found"));
     }
+
+//        meal.ifPresentOrElse(element -> element.toString(), () -> System.out.println("The meal was not found");
+
+
+    //        for (Meal meal : listMeals) {
+//            if (meal.getName().equals(name)) {
+//                return meal;
+//            }
+//        }
+//        return null;
 
     public List<Meal> findMealByCategory(String category) {
         List<Meal> mealsCategoryList = new LinkedList<>();

@@ -44,11 +44,11 @@ public class Repository {
         return listMeal.findMealByCategory(category);
     }
 
-    public void addMealToList(Meal meal) {
+    public void addMealToMainList(Meal meal) {
         listMeal.addMealToList(meal);
     }
 
-    public void removeMealFromList(Meal meal) {
+    public void removeMealFromMainList(Meal meal) {
         listMeal.removeMealFromList(meal);
     }
 
@@ -56,11 +56,11 @@ public class Repository {
         return favoriteListMeal.findMealByName(name);
     }
 
-    public List<Meal> findFavMealByIngredient(String ingredient) {
+    public List<Meal> findFavoriteMealByIngredient(String ingredient) {
         return favoriteListMeal.findMealByIngredient(ingredient);
     }
 
-    public List<Meal> findFavMealByCategory(String category) {
+    public List<Meal> findFavoriteMealByCategory(String category) {
         return favoriteListMeal.findMealByCategory(category);
     }
 
