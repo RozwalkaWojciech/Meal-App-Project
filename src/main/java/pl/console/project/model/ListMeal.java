@@ -38,7 +38,7 @@ public class ListMeal {
         return mealsCategoryList;
     }
 
-    public List<Meal> findMealByIngredient(String ingredient) { // shift+f6
+    public List<Meal> findMealByIngredient(String ingredient) {
         List<Meal> mealsIngredientList = new LinkedList<>();
         for (Meal meal : listMeals) {
             if (meal.getIngredients().contains(ingredient)) {
