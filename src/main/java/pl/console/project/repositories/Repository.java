@@ -2,9 +2,11 @@ package pl.console.project.repositories;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.console.project.model.ListMeal;
+import pl.console.project.model.Meal;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Repository {
 
@@ -30,15 +32,53 @@ public class Repository {
         return listMeal;
     }
 
+    public Meal findMealByName(String name) {
+        return listMeal.findMealByName(name);
+    }
+
+    public List<Meal> findMealByIngredient(String ingredient) {
+        return listMeal.findMealByIngredient(ingredient);
+    }
+
+    public List<Meal> findMealByCategory(String category) {
+        return listMeal.findMealByCategory(category);
+    }
+
+    public void addMealToList(Meal meal) {
+        listMeal.addMealToList(meal);
+    }
+
+    public void removeMealFromList(Meal meal) {
+        listMeal.removeMealFromList(meal);
+    }
+
+    public Meal findFavMealByName(String name) {
+        return favoriteListMeal.findMealByName(name);
+    }
+
+    public List<Meal> findFavMealByIngredient(String ingredient) {
+        return favoriteListMeal.findMealByIngredient(ingredient);
+    }
+
+    public List<Meal> findFavMealByCategory(String category) {
+        return favoriteListMeal.findMealByCategory(category);
+    }
+
     public ListMeal getFavoriteListMeal() {
         return favoriteListMeal;
     }
 
-    static ListMeal readFile(String path) {
+    public void addMealToFavorites(Meal meal) {
+        favoriteListMeal.addMealToList(meal);
+    }
 
+    public void removeMealFromFavorites(Meal meal) {
+        favoriteListMeal.removeMealFromList(meal);
+    }
+
+    static ListMeal readFile(String path) {
         ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = null;
-
         try {
             listMeal = objectMapper.readValue(new File(path), ListMeal.class);
         } catch (IOException e) {
