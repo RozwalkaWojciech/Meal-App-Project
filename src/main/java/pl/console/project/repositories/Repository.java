@@ -47,10 +47,12 @@ public class Repository {
 
     public void addMealToList(Meal meal) {
         listMeal.addMealToList(meal);
+        writeFile(USER_MEAL_LIST_PATH, listMeal);
     }
 
     public void removeMealFromList(Meal meal) {
         listMeal.removeMealFromList(meal);
+        writeFile(USER_MEAL_LIST_PATH, listMeal);
     }
 
     public Meal findFavMealByName(String name) {
@@ -71,10 +73,12 @@ public class Repository {
 
     public void addMealToFavorites(Meal meal) {
         favoriteListMeal.addMealToList(meal);
+        writeFile(FAVORITE_MEAL_LIST_PATH, favoriteListMeal);
     }
 
     public void removeMealFromFavorites(Meal meal) {
         favoriteListMeal.removeMealFromList(meal);
+        writeFile(FAVORITE_MEAL_LIST_PATH, favoriteListMeal);
     }
 
     public static ListMeal readFile(String path) {
