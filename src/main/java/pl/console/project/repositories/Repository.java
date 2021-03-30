@@ -32,7 +32,7 @@ public class Repository {
         return listMeal;
     }
 
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
     public Meal findMealByName(String name) {
         return listMeal.findMealByName(name);
     }
@@ -45,39 +45,39 @@ public class Repository {
         return listMeal.findMealByCategory(category);
     }
 
-    public void addMealToList(Meal meal) {
+    public void addMealToMainList(Meal meal) {
         listMeal.addMealToList(meal);
     }
 
-    public void removeMealFromList(Meal meal) {
+    public void removeMealFromMainList(Meal meal) {
         listMeal.removeMealFromList(meal);
     }
-//=======
-    public Meal findFavMealByName(String name) {
+
+    //=======
+    public Meal findFavoriteMealByName(String name) {
         return favoriteListMeal.findMealByName(name);
     }
 
-    public List<Meal> findFavMealByIngredient(String ingredient) {
+    public List<Meal> findFavoriteMealByIngredient(String ingredient) {
         return favoriteListMeal.findMealByIngredient(ingredient);
     }
 
-    public List<Meal> findFavMealByCategory(String category) {
+    public List<Meal> findFavoriteMealByCategory(String category) {
         return favoriteListMeal.findMealByCategory(category);
     }
 
     public ListMeal getFavoriteListMeal() {
-            return favoriteListMeal;
+        return favoriteListMeal;
     }
 
-    public void addMealToFavorites(Meal meal){
+    public void addMealToFavorites(Meal meal) {
         favoriteListMeal.addMealToList(meal);
     }
 
-    public void removeMealFromFavorites(Meal meal){
+    public void removeMealFromFavorites(Meal meal) {
         favoriteListMeal.removeMealFromList(meal);
     }
 //>>>>>>> origin/MarcinKozak
-
 
     static ListMeal readFile(String path) {
 
