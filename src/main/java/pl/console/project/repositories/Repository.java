@@ -14,10 +14,11 @@ public class Repository {
     private final ListMeal favoriteListMeal;
     private static Repository INSTANCE;
     private static final String DATA_BASE_PATH = "src/main/resources/meal list.json";
+    private static final String USER_MEAL_LIST_PATH = "src/main/resources/user meal list.json";
     private static final String FAVORITE_MEAL_LIST_PATH = "src/main/resources/favorite meal list.json";
 
     private Repository() {
-        listMeal = readFile(DATA_BASE_PATH);
+        listMeal = readFile(USER_MEAL_LIST_PATH);
         favoriteListMeal = readFile(FAVORITE_MEAL_LIST_PATH);
     }
 
@@ -76,7 +77,7 @@ public class Repository {
         favoriteListMeal.removeMealFromList(meal);
     }
 
-    static ListMeal readFile(String path) {
+    public static ListMeal readFile(String path) {
         ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = null;
         try {
@@ -87,10 +88,20 @@ public class Repository {
         return listMeal;
     }
 
-    static void writeFile(String path, ListMeal list) {
+    public static void writeFile(String path, ListMeal list) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             objectMapper.writeValue(new File(path), list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadDataBase() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ListMeal listMeal = readFile(DATA_BASE_PATH);
+        try {
+            objectMapper.writeValue(new File(USER_MEAL_LIST_PATH), listMeal);
         } catch (IOException e) {
             e.printStackTrace();
         }

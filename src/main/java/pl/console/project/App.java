@@ -16,5 +16,7 @@ public class App {
 
         STDOUT.info(Repository.getInstance().getListMeal().toString());
         STDOUT.info(Repository.getInstance().getFavoriteListMeal().toString());
+        Repository.loadDataBase();
+        STDOUT.info(Repository.getInstance().getListMeal().toString());
     }
 }
