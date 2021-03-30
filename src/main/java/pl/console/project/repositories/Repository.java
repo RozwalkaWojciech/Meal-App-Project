@@ -49,13 +49,10 @@ public class Repository {
 
     static void writeFile(String path, ListMeal list) {
         ObjectMapper objectMapper = new ObjectMapper();
-        ListMeal favoriteListMeal = list;
-
         try {
-            objectMapper.writeValue(new File(path), favoriteListMeal);
+            objectMapper.writeValue(new File(path), list);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
