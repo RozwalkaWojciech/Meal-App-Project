@@ -52,7 +52,6 @@ public class Repository {
         listMeal.removeMealFromList(meal);
     }
 
-    //=======
     public Meal findFavMealByName(String name) {
         return favoriteListMeal.findMealByName(name);
     }
@@ -76,14 +75,10 @@ public class Repository {
     public void removeMealFromFavorites(Meal meal) {
         favoriteListMeal.removeMealFromList(meal);
     }
-//>>>>>>> origin/MarcinKozak
-
 
     static ListMeal readFile(String path) {
-
         ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = null;
-
         try {
             listMeal = objectMapper.readValue(new File(path), ListMeal.class);
         } catch (IOException e) {
@@ -94,13 +89,10 @@ public class Repository {
 
     static void writeFile(String path, ListMeal list) {
         ObjectMapper objectMapper = new ObjectMapper();
-        ListMeal favoriteListMeal = list;
-
         try {
-            objectMapper.writeValue(new File(path), favoriteListMeal);
+            objectMapper.writeValue(new File(path), list);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
