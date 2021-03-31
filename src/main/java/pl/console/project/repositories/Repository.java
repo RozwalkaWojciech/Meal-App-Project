@@ -7,6 +7,7 @@ import pl.console.project.model.Meal;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class Repository {
 
@@ -33,7 +34,7 @@ public class Repository {
         return listMeal;
     }
 
-    public Meal findMealByName(String name) {
+    public Optional<Meal> findMealByName(String name) {
         return listMeal.findMealByName(name);
     }
 
@@ -55,7 +56,7 @@ public class Repository {
         writeFile(USER_MEAL_LIST_PATH, listMeal);
     }
 
-    public Meal findFavMealByName(String name) {
+    public Optional<Meal> findFavMealByName(String name) {
         return favoriteListMeal.findMealByName(name);
     }
 

@@ -20,18 +20,21 @@ public class ListMeal {
         return listMeals;
     }
 
-    public Meal findMealByName(String name) {
-        Optional<Meal> meal = listMeals.stream().filter(element -> element.getName().equals(name)).findFirst();
-        return meal.orElseThrow(() -> new RuntimeException("Meal was not found"));
+    public Optional<Meal> findMealByName(String name) {
+        return listMeals.stream()
+                .filter(element -> element.getName().equals(name))
+                .findFirst();
     }
 
     public List<Meal> findMealByCategory(String category) {
-        return listMeals.stream().filter(meal -> meal.getCategory().equals(category))
+        return listMeals.stream()
+                .filter(meal -> meal.getCategory().equals(category))
                 .collect(Collectors.toList());
     }
 
     public List<Meal> findMealByIngredient(String ingredient) {
-        return listMeals.stream().filter(meal -> meal.getIngredients().contains(ingredient))
+        return listMeals.stream()
+                .filter(meal -> meal.getIngredients().contains(ingredient))
                 .collect(Collectors.toList());
     }
 
