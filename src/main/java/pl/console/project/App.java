@@ -15,10 +15,11 @@ public class App {
         Menu menu = new Menu();
         menu.method();
 
-//        STDOUT.info(Repository.getInstance().getListMeal().toString());
-//        STDOUT.info(Repository.getInstance().getFavoriteListMeal().toString());
-//        Repository.loadDataBase();
-//        STDOUT.info(Repository.getInstance().getListMeal().toString());
+        STDOUT.info(Repository.getInstance().getListMeal().toString());
+        STDOUT.info(Repository.getInstance().getFavoriteListMeal().toString());
+        Repository.loadDataBase();
+        STDOUT.info(Repository.getInstance().getListMeal().toString());
         STDOUT.info(Utils.getUniqueCategory(Repository.getInstance().getListMeal()).toString());
+        STDOUT.info(Utils.getUniqueNames(Repository.getInstance().getListMeal()).toString());
     }
 }
