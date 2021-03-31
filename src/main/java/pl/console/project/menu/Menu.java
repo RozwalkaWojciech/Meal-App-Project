@@ -24,40 +24,24 @@ public class Menu {
     public static final String ANSI_WHITE = "\u001B[37m";
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
+    private Menu() {
+    }
+
     /**
      * You could reference those as necessary.
      * For example, using the above constants, you could make the following red text output on supported terminals:
      * System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
      **/
-
-    public void menu() {
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
-        System.out.println("2 - Manage favourites Meal");
-        System.out.println("3 - Configuration");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-    }
-
-    public void method() {
+    public static void mainMenu() {
         //STDOUT.info(ANSI_GREEN + "this text is green!" + ANSI_RESET);
         // String leftAlignFormat = "| %-15s | %-4d |%n";
-
-        System.out.format(ANSI_WHITE + "+-----------------+------+%n");
-        System.out.format("| WELCOME TO             |%n");
-        System.out.format("| (®) Meal App Project   |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("| Authors:xyz            |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("+-----------------+------+%n" + ANSI_RESET);
         //System.out.println(ANSI_GREEN + "Choose from below choices" + ANSI_RESET);
-        System.out.println("-------------------------\n");
+        System.out.println("--------------------------");
         System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
         System.out.println("2 - Manage favourites Meal");
         System.out.println("3 - Configuration");
         System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
+        System.out.println("--------------------------\n");
         System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
 
         Scanner scanner = new Scanner(System.in);
@@ -66,21 +50,30 @@ public class Menu {
             try {
                 choice = scanner.nextLine();
                 switch (choice) {
-                    case "1" -> System.out.println("Manage data base Meal");
-                    case "2" -> System.out.println("Manage favourites Meal");
-                    case "3" -> System.out.println("3 - Configuration");
-                    case "9" -> System.out.println("End of the program");
+                    case "1" -> STDOUT.info("Manage data base Meal\n");
+                    case "2" -> STDOUT.info("Manage favourites Meal\n");
+                    case "3" -> STDOUT.info("3 - Configuration\n");
+                    case "9" -> System.exit(0);
                     default -> {
-                        menu();
-                        System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
-                        //default -> System.out.println(ANSI_RED+"Please choose correct option"+ANSI_RESET);
+                        STDOUT.info(ANSI_RED + "Please choose correct option\n" + ANSI_RESET);
+                        mainMenu();
                     }
                 }
             } catch (InputMismatchException ignored) {
-                System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
+                STDOUT.info(ANSI_RED + "wrong parameter\n" + ANSI_RESET);
                 STDOUT.info(choice, " :parameter is ");
             }
         }
         scanner.close();
+    }
+
+    public static void intro() {
+        STDOUT.info(ANSI_BLUE + "\n+-----------------+------+\n");
+        STDOUT.info("| WELCOME TO             |\n");
+        STDOUT.info("| (®) Meal App Project   |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("| Authors:xyz            |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("+-----------------+------+\n\n" + ANSI_RESET);
     }
 }
