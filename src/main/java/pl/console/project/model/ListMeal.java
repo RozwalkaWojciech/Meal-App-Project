@@ -20,20 +20,11 @@ public class ListMeal {
         return listMeals;
     }
 
-    public Meal findMealByName(String name) {
-        Optional<Meal> meal = listMeals.stream().filter(element -> element.getName().equals(name)).findFirst();
-        return meal.orElseThrow(() -> new RuntimeException("Meal was not found"));
+    public Optional<Meal> findMealByName(String name) {
+        return listMeals.stream()
+                .filter(meal -> meal.getName().equals(name))
+                .findFirst();
     }
-
-//        meal.ifPresentOrElse(element -> element.toString(), () -> System.out.println("The meal was not found");
-
-
-    //        for (Meal meal : listMeals) {
-//            if (meal.getName().equals(name)) {
-//                return meal;
-//            }
-//        }
-//        return null;
 
     public List<Meal> findMealByCategory(String category) {
         List<Meal> mealsCategoryList = new LinkedList<>();
