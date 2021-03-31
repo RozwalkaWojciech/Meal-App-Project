@@ -12,14 +12,22 @@ public class App {
 
     public static void main(String[] args) {
 
-        Menu menu = new Menu();
-        menu.method();
+        Menu.intro();
+        Menu.mainMenu(); //comment this line to check how the methods below work
 
+        //Display users ListMeal
         STDOUT.info(Repository.getInstance().getListMeal().toString());
+
+        //Display fav ListMeal
         STDOUT.info(Repository.getInstance().getFavoriteListMeal().toString());
+
+        //Way to load the original database into the user list
         Repository.loadDataBase();
-        STDOUT.info(Repository.getInstance().getListMeal().toString());
-        STDOUT.info(Utils.getUniqueCategory(Repository.getInstance().getListMeal()).toString());
+
+        //Display unique category names
+        STDOUT.info(Utils.getUniqueCategory(Repository.getInstance().getListMeal()).toString() + "\n");
+
+        //Display unique meal names
         STDOUT.info(Utils.getUniqueNames(Repository.getInstance().getListMeal()).toString());
     }
 }
