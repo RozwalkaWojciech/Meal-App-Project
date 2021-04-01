@@ -15,8 +15,8 @@ public class Meal {
     private final String name;
     private final String category;
     private final String instruction;
-    private List<String> ingredients = new ArrayList<>();
-    private List<String> measures = new ArrayList<>();
+    private final List<String> ingredients = new ArrayList<>();
+    private final List<String> measures = new ArrayList<>();
 
 
     @JsonAlias({"strIngredient1", "strIngredient2", "strIngredient3", "strIngredient4", "strIngredient5",
