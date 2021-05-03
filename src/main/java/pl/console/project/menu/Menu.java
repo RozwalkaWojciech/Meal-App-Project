@@ -49,7 +49,8 @@ public class Menu {
         System.out.println(ANSI_BLUE+ "1 - Option");
         System.out.println("2 - Option");
         System.out.println("3 - Option");
-        System.out.println("9 - Return to previous Menu" + ANSI_RESET);
+        System.out.println("8 - Return to previous Menu ");
+        System.out.println("9 - Stop the program" + ANSI_RESET);
         System.out.println("-------------------------\n");
         System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
     }
@@ -65,11 +66,9 @@ public class Menu {
                     case "1" -> {printMenuWithAvailableOptionsInDataBaseMeal(); System.out.println("First Option in Data Base Meal");}
                     case "2" -> System.out.println("Second Option in Data Base Meal");
                     case "3" -> System.out.println("Third Option in Data Base Meal");
-                    case "9" -> {return; }
-                    case "10" -> {
-                        System.out.println("stop");
-                        break;
+                    case "8" -> {printMenuWithMenuOptionWhenIncorectChoose();{return;}
                     }
+                    case "9" -> {break;}
                     default -> {
                         printMenuWithMenuOptionWhenIncorectChoose();
                         System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
