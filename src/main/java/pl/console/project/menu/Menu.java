@@ -14,6 +14,11 @@ import java.util.Scanner;
 public class Menu {
 
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    public static final String BLUE = Color.BLUE.get();
+    public static final String RESET = Color.RESET.get();
+    public static final String RED = Color.RED.get();
+    public static final String CYAN = Color.CYAN.get();
+    public static final String YELLOW = Color.YELLOW.get();
 
     private Menu() {
     }
@@ -27,13 +32,13 @@ public class Menu {
         STDOUT.info("\n────────────────────────────\n");
         STDOUT.info("         MAIN MENU        \n");
         STDOUT.info("────────────────────────────\n");
-        STDOUT.info(Color.YELLOW.get() + "1 - Search Meal\n");
-        STDOUT.info(Color.YELLOW.get() + "2 - Add/remove Meal\n");
+        STDOUT.info("{}1 - Search Meal\n", YELLOW);
+        STDOUT.info("{}2 - Add/remove Meal\n", YELLOW);
         STDOUT.info("3 - Manage favourites Meal\n");
         STDOUT.info("4 - Configuration\n");
-        STDOUT.info("9 - Quit\n" + Color.RESET.get());
+        STDOUT.info("9 - Quit{}\n", RESET);
         STDOUT.info("--------------------------\n");
-        STDOUT.info(Color.CYAN.get() + "Please choose an interesting option and press 'enter'\n" + Color.RESET.get());
+        STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
         Scanner scanner = new Scanner(System.in);
         String choice = "";
@@ -50,27 +55,26 @@ public class Menu {
                         mainMenu();
                     }
                 }
-            } catch (InputMismatchException ignored) {
-                STDOUT.info(Color.RED.get() + "wrong parameter\n" + Color.RESET.get());
-                STDOUT.info(choice, " :parameter is ");
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
             }
         }
         scanner.close();
     }
 
     public static void intro() {
-        STDOUT.info(Color.BLUE.get() + "\n+-----------------+------+\n");
+        STDOUT.info("\n{}+-----------------+------+\n", BLUE);
         STDOUT.info("| WELCOME TO             |\n");
         STDOUT.info("| (®) Meal App Project   |\n");
         STDOUT.info("+-----------------+------+\n");
         STDOUT.info("| Authors:xyz            |\n");
         STDOUT.info("+-----------------+------+\n");
-        STDOUT.info("+-----------------+------+\n\n" + Color.RESET.get());
+        STDOUT.info("+-----------------+------+{}\n\n", RESET);
     }
 
     static void wrongChoice() {
-        STDOUT.info(Color.RED.get() + "\n****************************\n");
+        STDOUT.info("\n{}****************************\n", RED);
         STDOUT.info("Please choose correct option\n");
-        STDOUT.info("****************************\n" + Color.RESET.get());
+        STDOUT.info("****************************{}\n", RESET);
     }
 }
