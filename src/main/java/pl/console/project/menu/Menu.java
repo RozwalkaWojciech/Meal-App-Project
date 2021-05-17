@@ -69,7 +69,10 @@ public class Menu {
             try {
                 choice = scanner.nextLine();
                 switch (choice) {
-                    case "1" -> System.out.println("Manage data base Meal");
+                    case "1" -> {
+                        System.out.println("Manage data base Meal");
+                        // displayMealsInMenu( need-to-attach-listMeal );
+                    }
                     case "2" -> System.out.println("Manage favourites Meal");
                     case "3" -> System.out.println("3 - Configuration");
                     case "9" -> System.out.println("End of the program");
@@ -137,61 +140,4 @@ public class Menu {
         // TODO ????????
         System.out.println("Exit in progess");
     }
-
-    //    public void displayMealsInMenu(ListMeal listMeal) throws InterruptedException {
-//        int nr = 1;
-//        int pageCurrent = 1;
-//        List<Meal> listMeals = listMeal.getListMeals();
-//        for (Meal meal : listMeals) {
-//            System.out.println(nr + " - " + listMeals.get(nr + (7 * (pageCurrent - 1))).getName());
-//            nr++;
-//
-//            if (nr == 7 || nr == listMeals.size()) {
-//                if (shouldChangePage(pageCurrent, listMeals.size())) {
-//                    nr = 1;
-//                    Thread.currentThread().start();
-//                }
-//                System.out.println("Press - 9 - to exit.");
-//            }
-//        }
-//    }
-
-//    public boolean shouldDisplayNext() {
-//        System.out.println("Press 'e' to check next meals.");
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//        if (input.equals("e")) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean shouldDisplayPrevious() {
-//        System.out.println("Press 'q' to check previous meals.");
-//        Scanner scanner = new Scanner(System.in);
-//        String input = scanner.nextLine();
-//        if (input.equals("q")) {
-//            return true;
-//        }
-//        return false;
-//    }
-
-    // 30 % 7 = 2
-
-//    public void displayMealsInMenu() throws InterruptedException {
-//        int i = 1;
-//        int pagesAmount = determinePageAmount(listMeals);
-//        int pageCurrent;
-//        for (Meal meal : listMeals) {
-//            System.out.println(i + " - " + meal.getName());
-//            i++;
-//            if (i == 7) {
-//                i = 1;
-//                Thread.currentThread().wait();
-//                if (shouldDisplayNext()) {
-//                    Thread.currentThread().run();
-//                }
-//            }
-//        }
-//    }
 }
