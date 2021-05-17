@@ -23,7 +23,7 @@ public class ListMeal {
 
     public Optional<Meal> findMealByName(String name) {
         return listMeals.stream()
-                .filter(element -> element.getName().equals(name))
+                .filter(meal -> meal.getName().equals(name))
                 .findFirst();
     }
 
@@ -49,8 +49,9 @@ public class ListMeal {
 
     public void removeMealFromList(Meal meal) {
         for (Meal existingMeal : listMeals) {
-            if (existingMeal.getName().equals(meal.getName()))
+            if (existingMeal.getName().equals(meal.getName())) {
                 listMeals.remove(meal);
+            }
         }
     }
 

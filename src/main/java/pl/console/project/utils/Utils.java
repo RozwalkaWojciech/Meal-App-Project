@@ -18,7 +18,10 @@ public class Utils {
                 .collect(Collectors.toSet());
     }
 
-    // getUniqueNames
-    // getUniqueIngredients
-    //
+    public static Set<String> getUniqueNames(ListMeal listMeal) {
+        return listMeal.getListMeals()
+                .stream()
+                .map(Meal::getName)
+                .collect(Collectors.toSet());
+    }
 }

@@ -16,52 +16,32 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    public static final String BLUE = Color.BLUE.get();
+    public static final String RESET = Color.RESET.get();
+    public static final String RED = Color.RED.get();
+    public static final String CYAN = Color.CYAN.get();
+    public static final String YELLOW = Color.YELLOW.get();
+
+    private Menu() {
+    }
 
     /**
      * You could reference those as necessary.
      * For example, using the above constants, you could make the following red text output on supported terminals:
      * System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
      **/
-
-    public void menu() {
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
-        System.out.println("2 - Manage favourites Meal");
-        System.out.println("3 - Configuration");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-    }
-
-    public void method() {
-        //STDOUT.info(ANSI_GREEN + "this text is green!" + ANSI_RESET);
-        // String leftAlignFormat = "| %-15s | %-4d |%n";
-
-        System.out.format(ANSI_WHITE + "+-----------------+------+%n");
-        System.out.format("| WELCOME TO             |%n");
-        System.out.format("| (®) Meal App Project   |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("| Authors:xyz            |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("+-----------------+------+%n" + ANSI_RESET);
-        //System.out.println(ANSI_GREEN + "Choose from below choices" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
-        System.out.println("2 - Manage favourites Meal");
-        System.out.println("3 - Configuration");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
+    public static void mainMenu() {
+        STDOUT.info("\n────────────────────────────\n");
+        STDOUT.info("         MAIN MENU        \n");
+        STDOUT.info("────────────────────────────\n");
+        STDOUT.info("{}1 - Search Meal\n", YELLOW);
+        STDOUT.info("{}2 - Add/remove Meal\n", YELLOW);
+        STDOUT.info("3 - Manage favourites Meal\n");
+        STDOUT.info("4 - Configuration\n");
+        STDOUT.info("9 - Quit{}\n", RESET);
+        STDOUT.info("--------------------------\n");
+        STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
         Scanner scanner = new Scanner(System.in);
         String choice = "";
@@ -69,27 +49,37 @@ public class Menu {
             try {
                 choice = scanner.nextLine();
                 switch (choice) {
-                    case "1" -> {
-                        System.out.println("Manage data base Meal");
-                        // displayMealsInMenu( need-to-attach-listMeal );
-                    }
-                    case "2" -> System.out.println("Manage favourites Meal");
-                    case "3" -> System.out.println("3 - Configuration");
-                    case "9" -> System.out.println("End of the program");
+                    case "1" -> SearchMenu.searchMenu();
+                    case "2" -> STDOUT.info("Manage favourites Meal\n");
+                    case "3" -> STDOUT.info("3 - Configuration\n");
+                    case "9" -> System.exit(0);
                     default -> {
-                        menu();
-                        System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
-                        //default -> System.out.println(ANSI_RED+"Please choose correct option"+ANSI_RESET);
+                        wrongChoice();
+                        mainMenu();
                     }
                 }
-            } catch (InputMismatchException ignored) {
-                System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
-                STDOUT.info(choice, " :parameter is ");
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
             }
         }
         scanner.close();
     }
 
+    public static void intro() {
+        STDOUT.info("\n{}+-----------------+------+\n", BLUE);
+        STDOUT.info("| WELCOME TO             |\n");
+        STDOUT.info("| (®) Meal App Project   |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("| Authors:xyz            |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("+-----------------+------+{}\n\n", RESET);
+    }
+
+    static void wrongChoice() {
+        STDOUT.info("\n{}****************************\n", RED);
+        STDOUT.info("Please choose correct option\n");
+        STDOUT.info("****************************{}\n", RESET);
+    }
     public void displayMealsInMenu(ListMeal listMeal) {
         List<Meal> mealsList = listMeal.getListMeals();
         int pagesAmount = determinePagesAmount(mealsList);
@@ -140,4 +130,5 @@ public class Menu {
         // TODO ????????
         System.out.println("Exit in progess");
     }
+
 }

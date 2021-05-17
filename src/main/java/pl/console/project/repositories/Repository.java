@@ -14,7 +14,8 @@ public class Repository {
 
     private final ListMeal listMeal;
     private final ListMeal favoriteListMeal;
-    private static Repository INSTANCE;
+    private static Repository instance;
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final String DATA_BASE_PATH = "src/main/resources/meal list.json";
     private static final String USER_MEAL_LIST_PATH = "src/main/resources/user meal list.json";
     private static final String FAVORITE_MEAL_LIST_PATH = "src/main/resources/favorite meal list.json";
@@ -25,10 +26,10 @@ public class Repository {
     }
 
     public static Repository getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Repository();
+        if (instance == null) {
+            instance = new Repository();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public ListMeal getListMeal() {
@@ -84,10 +85,9 @@ public class Repository {
     }
 
     public static ListMeal readFile(String path) {
-        ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = null;
         try {
-            listMeal = objectMapper.readValue(new File(path), ListMeal.class);
+            listMeal = OBJECT_MAPPER.readValue(new File(path), ListMeal.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,19 +95,17 @@ public class Repository {
     }
 
     public static void writeFile(String path, ListMeal list) {
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new File(path), list);
+            OBJECT_MAPPER.writeValue(new File(path), list);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void loadDataBase() {
-        ObjectMapper objectMapper = new ObjectMapper();
         ListMeal listMeal = readFile(DATA_BASE_PATH);
         try {
-            objectMapper.writeValue(new File(USER_MEAL_LIST_PATH), listMeal);
+            OBJECT_MAPPER.writeValue(new File(USER_MEAL_LIST_PATH), listMeal);
         } catch (IOException e) {
             e.printStackTrace();
         }
