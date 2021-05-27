@@ -1,9 +1,12 @@
 package pl.console.project.menu;
 
+import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.console.project.model.ListMeal;
 import pl.console.project.model.Meal;
+import pl.console.project.repositories.Repository;
+import pl.console.project.utils.Utils;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -37,9 +40,18 @@ class SearchMenu {
             try {
                 choice = scanner.nextLine();
                 switch (choice) {
-                    case "1" -> STDOUT.info("{}\nTODO: {}Display meals name -> use utils class\n", GREEN, RESET);
-                    case "2" -> STDOUT.info("{}\nTODO: {}Display unique ingredients -> use utils class\n", GREEN, RESET);
-                    case "3" -> STDOUT.info("{}\nTODO: {}Display unique category -> use utils class\n", GREEN, RESET);
+                    case "1" -> {
+                        STDOUT.info("{}\nTODO: {}Display meals name -> use utils class\n", GREEN, RESET);
+                        DisplayMenu.displayMealsInMenu(Utils.getUniqueNames(Repository.getInstance().getListMeal()));
+                    }
+                    case "2" -> {
+                        STDOUT.info("{}\nTODO: {}Display unique ingredients -> use utils class\n", GREEN, RESET);
+//                        DisplayMenu.displayMealsInMenu(Utils.getUniqueIngredients(Repository.getInstance().getListMeal()));
+                    }
+                    case "3" -> {
+                        STDOUT.info("{}\nTODO: {}Display unique category -> use utils class\n", GREEN, RESET);
+                        DisplayMenu.displayMealsInMenu(Utils.getUniqueCategory(Repository.getInstance().getListMeal()));
+                    }
                     case "8" -> Menu.mainMenu();
                     default -> {
                         Menu.wrongChoice();

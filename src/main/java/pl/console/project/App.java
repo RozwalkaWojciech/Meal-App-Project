@@ -2,6 +2,7 @@ package pl.console.project;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.console.project.menu.DisplayMenu;
 import pl.console.project.menu.Menu;
 import pl.console.project.repositories.Repository;
 import pl.console.project.utils.Utils;
@@ -12,7 +13,11 @@ public class App {
 
     public static void main(String[] args) {
 
-        Menu.intro();
+//        Menu.intro();
+//        DisplayMenu.displayMealsInMenu(Repository.getInstance().getListMeal());
+//        DisplayMenu.displayMealsInMenu(Utils.getUniqueCategory(Repository.getInstance().getListMeal()));
+        Menu.mainMenu();
+
 //        Menu.mainMenu(); //comment this line to check how the methods below work
 
 //        //Display users ListMeal
