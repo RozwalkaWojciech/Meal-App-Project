@@ -46,7 +46,7 @@ class SearchMenu {
                     }
                     case "2" -> {
                         STDOUT.info("{}\nTODO: {}Display unique ingredients -> use utils class\n", GREEN, RESET);
-//                        DisplayMenu.displayMealsInMenu(Utils.getUniqueIngredients(Repository.getInstance().getListMeal()));
+                        DisplayMenu.displayMealsInMenu(Utils.getUniqueIngredients(Repository.getInstance().getListMeal()));
                     }
                     case "3" -> {
                         STDOUT.info("{}\nTODO: {}Display unique category -> use utils class\n", GREEN, RESET);

@@ -26,7 +26,10 @@ public class Utils {
                 .collect(Collectors.toSet());
     }
 
-//    public static Set<String> getUniqueIngredients(ListMeal listMeal) {
-//
-//    }
+    public static Set<String> getUniqueIngredients(ListMeal listMeal) {
+        return listMeal.getListMeals()
+                .stream()
+                .flatMap(meal -> meal.getIngredients().stream())
+                .collect(Collectors.toSet());
+    }
 }
