@@ -1,45 +1,77 @@
 package pl.console.project.menu;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
 public class DisplayMenu {
+    private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    static int pagesAmount;
+    static int pageCurrent;
+    static String messageSwitchPage;
+    static Scanner scanner = new Scanner(System.in);
+    static String input;
+
     public static void displayMealsInMenu(Set<String> mealsSet) {
-        int pagesAmount = determinePagesAmount(mealsSet);
-        get7MealsPerPage(pagesAmount, mealsSet);
+        pagesAmount = determinePagesAmount(mealsSet);
+        pageCurrent = 1;
+        input = "";
+        while (!input.equals("x")) {
+            STDOUT.info("────────────────────────────\n");
+            STDOUT.info("        DISPLAY MENU\n");
+            STDOUT.info("────────────────────────────\n");
+            get7MealsPerPage(mealsSet);
+            displayChangePageMessage();
+            changePageOrExit();
+        }
     }
 
-    private static void get7MealsPerPage(int pagesAmount, Set<String> mealsSet) {
+    private static void get7MealsPerPage(Set<String> mealsSet) {
         List<String> mealsList = new ArrayList<>(mealsSet);
-        int pageCurrent = 1;
+        STDOUT.info("Page nr " + pageCurrent + "/" + pagesAmount + "\n");
 
-        while (true) {
-            System.out.println("Page nr " + pageCurrent + "/" + pagesAmount);
-            for (int i = 1; i <= 7; i++) {
-                int nrOnList = (i + (7 * (pageCurrent - 1)));
-                try {
-                    System.out.println(i + " - " + mealsList.get(nrOnList));
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println();
-                }
+        for (int i = 1; i <= 7; i++) {
+            int nrOnList = (i + (7 * (pageCurrent - 1)));
+            try {
+                STDOUT.info(nrOnList + " - " + mealsList.get(nrOnList) + "\n");
+            } catch (IndexOutOfBoundsException e) {
+                STDOUT.info(".. - ....................\n");
             }
-            System.out.println("Press - 9 - to exit.");
+        }
+    }
 
-            System.out.println("Press 'e' to check next meals, 'q' to check previous meals. Press 'w' to move to previous menu.");
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+    private static void displayChangePageMessage() {
+        if (pagesAmount == 1) {
+            messageSwitchPage = "Press 'x' to move to previous menu.";
+        } else if (pageCurrent == 1 && pageCurrent < pagesAmount) {
+            messageSwitchPage = "Press 'n' to check next meals. Press 'x' to move to previous menu.";
+        } else if (pageCurrent == pagesAmount) {
+            messageSwitchPage = "Press 'p' to check previous meals. Press 'x' to move to previous menu.";
+        } else {
+            messageSwitchPage = "Press 'n' to check next meals, 'p' to check previous meals. Press 'x' to move to previous menu.";
+        }
 
-            if (input.equals("e") && pageCurrent < pagesAmount) {
-                pageCurrent++;
-            } else if (input.equals("q") && pageCurrent > 1) {
-                pageCurrent--;
-            } else if (input.equals("w")) {
-                SearchMenu.searchMenu();
-            } else if (input.equals("9")) {
-                System.exit(0);
-            }
+        STDOUT.info("\n");
+        STDOUT.info(messageSwitchPage);
+        STDOUT.info("\n");
+    }
+
+    private static void changePageOrExit() {
+        input = scanner.nextLine();
+
+        if (input.equals("n") && pageCurrent < pagesAmount) {
+            pageCurrent++;
+        } else if (input.equals("p") && pageCurrent > 1) {
+            pageCurrent--;
+        } else if (input.equals("x")) {
+            SearchMenu.searchMenu();
+        } else {
+            Menu.wrongChoice();
+            STDOUT.info("\n");
         }
     }
 

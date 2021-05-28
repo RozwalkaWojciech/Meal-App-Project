@@ -3,12 +3,9 @@ package pl.console.project.utils;
 import pl.console.project.model.ListMeal;
 import pl.console.project.model.Meal;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Utils {
 
@@ -30,9 +27,6 @@ public class Utils {
     }
 
 //    public static Set<String> getUniqueIngredients(ListMeal listMeal) {
-//        return listMeal.getListMeals()
-//                .stream()
-//                .map(Meal::getIngredients)
-//                .collect(Collectors.toSet());
+//
 //    }
 }
