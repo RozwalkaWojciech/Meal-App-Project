@@ -13,8 +13,12 @@ public class DisplayMenu {
     static int pagesAmount;
     static int pageCurrent;
     static String messageSwitchPage;
-    static Scanner scanner = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
     static String input;
+
+    private DisplayMenu() {
+
+    }
 
     public static void displayMealsInMenu(Set<String> mealsSet) {
         pagesAmount = determinePagesAmount(mealsSet);
@@ -83,7 +87,7 @@ public class DisplayMenu {
         } else if (size % 7 == 0) {
             pagesAmount = (size / 7);
         } else {
-            pagesAmount = (int) (size / 7) + 1;
+            pagesAmount = (size / 7) + 1;
         }
         return pagesAmount;
     }
