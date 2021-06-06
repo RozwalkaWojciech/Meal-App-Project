@@ -5,206 +5,77 @@ Main class in project to select choose on with option user wanna choose
 
 package pl.console.project.menu;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Menu {
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_BLACK = "\u001B[30m";
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_BLUE = "\u001B[34m";
-    public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_CYAN = "\u001B[36m";
-    public static final String ANSI_WHITE = "\u001B[37m";
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    public static final String BLUE = Color.BLUE.get();
+    public static final String RESET = Color.RESET.get();
+    public static final String RED = Color.RED.get();
+    public static final String CYAN = Color.CYAN.get();
+    public static final String YELLOW = Color.YELLOW.get();
 
-    Scanner scanner = new Scanner(System.in);
-    String choice = "";
+    private Menu() {
+    }
 
     /**
      * You could reference those as necessary.
      * For example, using the above constants, you could make the following red text output on supported terminals:
      * System.out.println(ANSI_RED + "This text is red!" + ANSI_RESET);
      **/
+    public static void mainMenu() {
+        STDOUT.info("\n────────────────────────────\n");
+        STDOUT.info("         MAIN MENU        \n");
+        STDOUT.info("────────────────────────────\n");
+        STDOUT.info("{}1 - Search Meal\n", YELLOW);
+        STDOUT.info("{}2 - Add/remove Meal\n", YELLOW);
+        STDOUT.info("3 - Manage favourites Meal\n");
+        STDOUT.info("4 - Configuration\n");
+        STDOUT.info("9 - Quit{}\n", RESET);
+        STDOUT.info("--------------------------\n");
+        STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
-    public void printMenuWithMenuOptionWhenIncorrectChoose() {
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
-        System.out.println("2 - Manage favourites Meal");
-        System.out.println("3 - Configuration");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-    }
-
-    public void printMenuWithAvailableOptionsInDataBaseMeal(){
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_BLUE+ "1 - Option");
-        System.out.println("2 - Option");
-        System.out.println("3 - Option");
-        System.out.println("8 - Return to previous Menu ");
-        System.out.println("9 - Stop the program" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-    }
-    public void printMenuWithMenuOptionInOptionsMenu() {
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - First Option - Make Factory Reset");
-        System.out.println("2 - Second Option in Option in main menu");
-        System.out.println("3 - NULL nothing just a easter egg ");
-        System.out.println("8 - Return to previous Menu ");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-    }
-
-    public void printMenuManageDataBaseMeal(){
-        printMenuWithAvailableOptionsInDataBaseMealOneMethod();
-    }
-
-    public void printMenuManageFavouritesMeal() {
-           printMenuWithAvailableOptionsInDataBaseMeal();
-
-            while (!choice.equals("9")) {
-
-                try {
-                    choice = scanner.nextLine();
-                    switch (choice) {
-                        case "1" -> {
-                            printMenuWithAvailableOptionsInDataBaseMeal();
-                            System.out.println("First Option in Data Base Meal");
-                        }
-                        case "2" -> System.out.println("Second Option in Favourites Meal");
-                        case "3" -> System.out.println("Third Option in Favourites Meal");
-                        case "8" -> {
-                            printMenuWithMenuOptionWhenIncorrectChoose();
-                            {
-                                return;
-                            }
-                        }
-                        case "9" -> {
-                            break;
-                        }
-                        default -> {
-                            printMenuWithMenuOptionWhenIncorrectChoose();
-                            System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
-                        }
-                    }
-                } catch (InputMismatchException ignored) {
-                    System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
-                    STDOUT.info(choice, " :parameter is ");
-                }
-            }
-            scanner.close();
-        }
-
-    public void printMenuOption(){
-        underMenuOptionMakeFactoryReset();
-    }
-
-    private void printMenuWithAvailableOptionsInDataBaseMealOneMethod() {
-        printMenuWithAvailableOptionsInDataBaseMeal();
-
+        Scanner scanner = new Scanner(System.in);
+        String choice = "";
         while (!choice.equals("9")) {
-
             try {
                 choice = scanner.nextLine();
                 switch (choice) {
-                    case "1" -> {printMenuWithAvailableOptionsInDataBaseMeal(); System.out.println("First Option in Data Base Meal");}
-                    case "2" -> System.out.println("Second Option in Data Base Meal");
-                    case "3" -> System.out.println("Third Option in Data Base Meal");
-                    case "8" -> {
-                        printMenuWithMenuOptionWhenIncorrectChoose();{return;}
-                    }
-                    case "9" -> {break;}
+                    case "1" -> SearchMenu.searchMenu();
+                    case "2" -> STDOUT.info("Manage favourites Meal\n");
+                    case "3" -> STDOUT.info("3 - Configuration\n");
+                    case "9" -> System.exit(0);
                     default -> {
-                        printMenuWithMenuOptionWhenIncorrectChoose();
-                        System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
+                        wrongChoice();
+                        mainMenu();
                     }
                 }
-            } catch (InputMismatchException ignored) {
-                System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
-                STDOUT.info(choice, " :parameter is ");
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
             }
         }
         scanner.close();
     }
 
-    public void underMenuOptionMakeFactoryReset(){
-        printMenuWithMenuOptionInOptionsMenu();
-        while (!choice.equals("9")){
-
-            try {
-                choice = scanner.nextLine();
-                switch (choice) {
-                    case "1" -> System.out.println("First Option - Make Factory Reset");
-                    case "2" -> System.out.println("Second Option in Option in main menu");
-                    case "8" -> {
-                        printMenuWithMenuOptionInOptionsMenu();{return;}
-                    }
-                    case "9" -> {break;}
-                    default -> {
-                        printMenuWithMenuOptionInOptionsMenu();
-                        System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
-                    }
-                }
-            } catch (InputMismatchException ignored) {
-                System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
-                STDOUT.info(choice, " :parameter is ");
-            }
-        }
-        scanner.close();
+    public static void intro() {
+        STDOUT.info("\n{}+-----------------+------+\n", BLUE);
+        STDOUT.info("| WELCOME TO             |\n");
+        STDOUT.info("| (®) Meal App Project   |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("| Authors:xyz            |\n");
+        STDOUT.info("+-----------------+------+\n");
+        STDOUT.info("+-----------------+------+{}\n\n", RESET);
     }
 
-
-    public void mainMethodToRunMenu() {
-        //STDOUT.info(ANSI_GREEN + "this text is green!" + ANSI_RESET);
-        // String leftAlignFormat = "| %-15s | %-4d |%n";
-
-        System.out.format(ANSI_WHITE + "+-----------------+------+%n");
-        System.out.format("| WELCOME TO             |%n");
-        System.out.format("| (®) Meal App Project   |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("| Authors:xyz            |%n");
-        System.out.format("+-----------------+------+%n");
-        System.out.format("+-----------------+------+%n" + ANSI_RESET);
-
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_YELLOW + "1 - Manage data base Meal");
-        System.out.println("2 - Manage favourites Meal");
-        System.out.println("3 - Configuration");
-        System.out.println("9 - Quit" + ANSI_RESET);
-        System.out.println("-------------------------\n");
-        System.out.println(ANSI_CYAN + "Please choose an interesting option and press 'enter'" + ANSI_RESET);
-
-        while (!choice.equals("9")) {
-
-            try {
-                choice = scanner.nextLine();
-                switch (choice) {
-                    case "1" -> {printMenuManageDataBaseMeal(); System.out.println("Manage data base Meal");}
-                    case "2" -> {printMenuManageFavouritesMeal(); System.out.println("Manage favourites Meal");}
-                    case "3" -> {printMenuOption(); System.out.println("3 - Configuration");}
-                    case "8" -> {
-                        printMenuWithMenuOptionInOptionsMenu();{return;}}
-                    case "9" -> System.out.println("End of the program");
-                    default -> {
-                        printMenuWithMenuOptionWhenIncorrectChoose();
-                        System.out.println(ANSI_RED + "Please choose correct option" + ANSI_RESET);
-                    }
-                }
-            } catch (InputMismatchException ignored) {
-                System.out.println(ANSI_RED + "wrong parameter" + ANSI_RESET);
-                STDOUT.info(choice, " :parameter is ");
-            }
-        }
-        scanner.close();
+    static void wrongChoice() {
+        STDOUT.info("\n{}****************************\n", RED);
+        STDOUT.info("Please choose correct option\n");
+        STDOUT.info("****************************{}\n", RESET);
     }
+
 }
