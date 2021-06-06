@@ -17,7 +17,7 @@ public class DisplayMenu {
     private static String messageSwitchPage;
     private static String input;
     private static List<String> mealsList;
-    private static ListMeal listMeals;
+    private static ListMeal listMeals = Repository.getInstance().getListMeal();
 
     private DisplayMenu() {
 
@@ -33,8 +33,8 @@ public class DisplayMenu {
             STDOUT.info("        DISPLAY MENU\n");
             STDOUT.info("────────────────────────────\n");
             get7MealsPerPage(mealsList);
-            displayChangePageMessage(mealsList);
-            changePageOrExit();
+            displayChangePageMessage();
+            changePageOrExit(mealsList);
         }
     }
 
@@ -51,7 +51,7 @@ public class DisplayMenu {
         }
     }
 
-    private static void displayChangePageMessage(List<String> mealsList) {
+    private static void displayChangePageMessage() {
         if (pagesAmount == 1) {
             messageSwitchPage = "Press 'x' to move to previous menu.";
         } else if (pageCurrent == 1 && pageCurrent < pagesAmount) {
@@ -67,7 +67,7 @@ public class DisplayMenu {
         STDOUT.info("\n");
     }
 
-    private static void changePageOrExit() {
+    private static void changePageOrExit(List<String> mealsList) {
         input = scanner.nextLine();
         int firstListNumber = 1 + ((pageCurrent - 1) * 7);
         int lastListNumber = 7 + ((pageCurrent - 1) * 7);
@@ -75,10 +75,13 @@ public class DisplayMenu {
         if (isNumber(input)) {
             int inputNumber = Integer.parseInt(input);
             if (inputNumber >= firstListNumber && inputNumber <= lastListNumber) {
-                if (listMeals != null) {
-                    STDOUT.info(displayOneMeal(listMeals.getListMeals(), nrOnList));
-                } else
-                    STDOUT.info("The list is empty!");
+                try{
+                    STDOUT.info(displayOneMeal(mealsList, inputNumber).toString());
+                    STDOUT.info("\nPress enter to get back to the Display Menu\n");
+                    input = scanner.nextLine();
+                } catch (IndexOutOfBoundsException e) {
+                    STDOUT.info("Please, choose the correct number \n");
+                }
             } else {
                 Menu.wrongChoice();
                 STDOUT.info("\n");
@@ -95,8 +98,9 @@ public class DisplayMenu {
         }
     }
 
-    private static String displayOneMeal(List<Meal> mealsList, int nrOnList) {
-        return mealsList.get(nrOnList).toString();
+    private static Meal displayOneMeal(List<String> mealsList, int inputNr) {
+        return listMeals.findMealByName(mealsList.get(inputNr))
+                .orElseThrow(() -> new NullPointerException("Meal not found"));
     }
 
     public static boolean isNumber(String input) {
