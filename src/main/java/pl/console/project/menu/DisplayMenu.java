@@ -7,6 +7,7 @@ import pl.console.project.model.Meal;
 import pl.console.project.repositories.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DisplayMenu {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
@@ -16,6 +17,7 @@ public class DisplayMenu {
     private static int nrOnList;
     private static String messageSwitchPage;
     private static String input;
+    private static String inputWhichMethod;
     private static List<String> mealsList;
     private static ListMeal listMeals = Repository.getInstance().getListMeal();
 
@@ -73,12 +75,12 @@ public class DisplayMenu {
         int lastListNumber = 7 + ((pageCurrent - 1) * 7);
 
         if (isNumber(input)) {
-            int inputNumber = Integer.parseInt(input);
-            if (inputNumber >= firstListNumber && inputNumber <= lastListNumber) {
+            int inputNr = Integer.parseInt(input);
+            if (inputNr >= firstListNumber && inputNr <= lastListNumber) {
                 try{
-                    STDOUT.info(displayOneMeal(mealsList, inputNumber).toString());
+                    STDOUT.info(displaySelectedMeals(mealsList, inputNr));
                     STDOUT.info("\nPress enter to get back to the Display Menu\n");
-                    input = scanner.nextLine();
+                    DisplayMenu.input = scanner.nextLine();
                 } catch (IndexOutOfBoundsException e) {
                     STDOUT.info("Please, choose the correct number \n");
                 }
@@ -98,9 +100,28 @@ public class DisplayMenu {
         }
     }
 
+    private static String displaySelectedMeals(List<String> mealsList, int inputNr) {
+        int optionNr = Integer.valueOf(SearchMenu.choice);
+        if (optionNr == 1) {
+            return displayOneMeal(mealsList, inputNr).toString();
+        } else if (optionNr == 2) {
+            return displayMealsByCategory(mealsList, inputNr).toString();
+        } else {
+            return displayMealsByIngredient(mealsList, inputNr).toString();
+        }
+    }
+
     private static Meal displayOneMeal(List<String> mealsList, int inputNr) {
         return listMeals.findMealByName(mealsList.get(inputNr))
                 .orElseThrow(() -> new NullPointerException("Meal not found"));
+    }
+
+    private static List<Meal> displayMealsByIngredient(List<String> mealsList, int inputNr) {
+        return new ArrayList<Meal>(listMeals.findMealByIngredient(mealsList.get(inputNr)));
+    }
+
+    private static List<Meal> displayMealsByCategory(List<String> mealsList, int inputNr) {
+        return new ArrayList<Meal>(listMeals.findMealByCategory(mealsList.get(inputNr)));
     }
 
     public static boolean isNumber(String input) {

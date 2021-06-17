@@ -23,6 +23,8 @@ class SearchMenu {
     private SearchMenu() {
     }
 
+    static String choice;
+
     static void searchMenu() {
         STDOUT.info("\n────────────────────────────\n");
         STDOUT.info("        SEARCH MENU        \n");
@@ -35,7 +37,7 @@ class SearchMenu {
         STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
         Scanner scanner = new Scanner(System.in);
-        String choice = "";
+        choice = "";
         while (!choice.equals("9")) {
             try {
                 choice = scanner.nextLine();
