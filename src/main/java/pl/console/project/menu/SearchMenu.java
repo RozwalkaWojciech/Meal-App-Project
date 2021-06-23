@@ -1,15 +1,11 @@
 package pl.console.project.menu;
 
-import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.console.project.model.ListMeal;
-import pl.console.project.model.Meal;
 import pl.console.project.repositories.Repository;
 import pl.console.project.utils.Utils;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 class SearchMenu {
@@ -23,6 +19,8 @@ class SearchMenu {
     private SearchMenu() {
     }
 
+    static String choice;
+
     static void searchMenu() {
         STDOUT.info("\n────────────────────────────\n");
         STDOUT.info("        SEARCH MENU        \n");
@@ -35,7 +33,7 @@ class SearchMenu {
         STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
         Scanner scanner = new Scanner(System.in);
-        String choice = "";
+        choice = "";
         while (!choice.equals("9")) {
             try {
                 choice = scanner.nextLine();
