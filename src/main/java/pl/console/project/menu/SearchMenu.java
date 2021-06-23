@@ -1,15 +1,11 @@
 package pl.console.project.menu;
 
-import jdk.jshell.execution.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.console.project.model.ListMeal;
-import pl.console.project.model.Meal;
 import pl.console.project.repositories.Repository;
 import pl.console.project.utils.Utils;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 class SearchMenu {

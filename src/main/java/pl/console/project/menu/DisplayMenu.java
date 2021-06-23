@@ -6,26 +6,26 @@ import pl.console.project.model.ListMeal;
 import pl.console.project.model.Meal;
 import pl.console.project.repositories.Repository;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 public class DisplayMenu {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final Scanner scanner = new Scanner(System.in);
     private static int pagesAmount;
     private static int pageCurrent;
-    private static int nrOnList;
-    private static String messageSwitchPage;
     private static String input;
-    private static String inputWhichMethod;
-    private static List<String> mealsList;
-    private static ListMeal listMeals = Repository.getInstance().getListMeal();
+    private final static ListMeal listMeals = Repository.getInstance().getListMeal();
 
     private DisplayMenu() {
 
     }
 
     public static void displayMealsInMenu(Set<String> mealsSet) {
+        List<String> mealsList;
+
         mealsList = new ArrayList<>(mealsSet);
         pagesAmount = determinePagesAmount(mealsSet);
         pageCurrent = 1;
@@ -41,12 +41,13 @@ public class DisplayMenu {
     }
 
     private static void get7MealsPerPage(List<String> mealsList) {
+        int nrOnList;
         STDOUT.info("Page nr {}/{} \n", pageCurrent, pagesAmount);
 
         for (int i = 1; i <= 7; i++) {
             nrOnList = (i + (7 * (pageCurrent - 1)));
             try {
-                STDOUT.info("{} - {} \n", nrOnList, mealsList.get(nrOnList));
+                STDOUT.info("{} - {} \n", nrOnList, mealsList.get(nrOnList - 1));
             } catch (IndexOutOfBoundsException e) {
                 STDOUT.info(".. - ....................\n");
             }
@@ -54,6 +55,8 @@ public class DisplayMenu {
     }
 
     private static void displayChangePageMessage() {
+        String messageSwitchPage;
+
         if (pagesAmount == 1) {
             messageSwitchPage = "Press 'x' to move to previous menu.";
         } else if (pageCurrent == 1 && pageCurrent < pagesAmount) {
@@ -77,8 +80,8 @@ public class DisplayMenu {
         if (isNumber(input)) {
             int inputNr = Integer.parseInt(input);
             if (inputNr >= firstListNumber && inputNr <= lastListNumber) {
-                try{
-                    STDOUT.info(displaySelectedMeals(mealsList, inputNr));
+                try {
+                    STDOUT.info(displaySelectedMeals(mealsList, inputNr - 1));
                     STDOUT.info("\nPress enter to get back to the Display Menu\n");
                     DisplayMenu.input = scanner.nextLine();
                 } catch (IndexOutOfBoundsException e) {
@@ -101,13 +104,13 @@ public class DisplayMenu {
     }
 
     private static String displaySelectedMeals(List<String> mealsList, int inputNr) {
-        int optionNr = Integer.valueOf(SearchMenu.choice);
+        int optionNr = Integer.parseInt(SearchMenu.choice);
         if (optionNr == 1) {
             return displayOneMeal(mealsList, inputNr).toString();
         } else if (optionNr == 2) {
-            return displayMealsByCategory(mealsList, inputNr).toString();
-        } else {
             return displayMealsByIngredient(mealsList, inputNr).toString();
+        } else {
+            return displayMealsByCategory(mealsList, inputNr).toString();
         }
     }
 
@@ -117,11 +120,11 @@ public class DisplayMenu {
     }
 
     private static List<Meal> displayMealsByIngredient(List<String> mealsList, int inputNr) {
-        return new ArrayList<Meal>(listMeals.findMealByIngredient(mealsList.get(inputNr)));
+        return new ArrayList<>(listMeals.findMealByIngredient(mealsList.get(inputNr)));
     }
 
     private static List<Meal> displayMealsByCategory(List<String> mealsList, int inputNr) {
-        return new ArrayList<Meal>(listMeals.findMealByCategory(mealsList.get(inputNr)));
+        return new ArrayList<>(listMeals.findMealByCategory(mealsList.get(inputNr)));
     }
 
     public static boolean isNumber(String input) {
