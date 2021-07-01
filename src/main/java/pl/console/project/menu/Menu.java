@@ -7,11 +7,8 @@ package pl.console.project.menu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.console.project.model.ListMeal;
-import pl.console.project.model.Meal;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -37,9 +34,9 @@ public class Menu {
         STDOUT.info("────────────────────────────\n");
         STDOUT.info("{}1 - Search Meal\n", YELLOW);
         STDOUT.info("{}2 - Add/remove Meal\n", YELLOW);
-        STDOUT.info("3 - Manage favourites Meal\n");
+        STDOUT.info("3 - Manage favourite Meals\n");
         STDOUT.info("4 - Configuration\n");
-        STDOUT.info("9 - Quit{}\n", RESET);
+        STDOUT.info("9 - Exit{}\n", RESET);
         STDOUT.info("--------------------------\n");
         STDOUT.info("{}Please choose an interesting option and press 'enter'{}\n", CYAN, RESET);
 
@@ -50,8 +47,9 @@ public class Menu {
                 choice = scanner.nextLine();
                 switch (choice) {
                     case "1" -> SearchMenu.searchMenu();
-                    case "2" -> STDOUT.info("Manage favourites Meal\n");
-                    case "3" -> STDOUT.info("3 - Configuration\n");
+                    case "2" -> STDOUT.info("Add/remove Meal\n");
+                    case "3" -> STDOUT.info("Manage favourite Meals\n");
+                    case "4" -> STDOUT.info("Configuration\n");
                     case "9" -> System.exit(0);
                     default -> {
                         wrongChoice();

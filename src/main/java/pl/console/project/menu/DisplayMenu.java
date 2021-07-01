@@ -2,6 +2,9 @@ package pl.console.project.menu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.console.project.model.ListMeal;
+import pl.console.project.model.Meal;
+import pl.console.project.repositories.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,17 +13,20 @@ import java.util.Set;
 
 public class DisplayMenu {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    static int pagesAmount;
-    static int pageCurrent;
-    static String messageSwitchPage;
-    static final Scanner scanner = new Scanner(System.in);
-    static String input;
+    private static final Scanner scanner = new Scanner(System.in);
+    private static int pagesAmount;
+    private static int pageCurrent;
+    private static String input;
+    private final static ListMeal listMeals = Repository.getInstance().getListMeal();
 
     private DisplayMenu() {
 
     }
 
     public static void displayMealsInMenu(Set<String> mealsSet) {
+        List<String> mealsList;
+
+        mealsList = new ArrayList<>(mealsSet);
         pagesAmount = determinePagesAmount(mealsSet);
         pageCurrent = 1;
         input = "";
@@ -28,20 +34,20 @@ public class DisplayMenu {
             STDOUT.info("────────────────────────────\n");
             STDOUT.info("        DISPLAY MENU\n");
             STDOUT.info("────────────────────────────\n");
-            get7MealsPerPage(mealsSet);
+            get7MealsPerPage(mealsList);
             displayChangePageMessage();
-            changePageOrExit();
+            changePageOrExit(mealsList);
         }
     }
 
-    private static void get7MealsPerPage(Set<String> mealsSet) {
-        List<String> mealsList = new ArrayList<>(mealsSet);
-        STDOUT.info("Page nr " + pageCurrent + "/" + pagesAmount + "\n");
+    private static void get7MealsPerPage(List<String> mealsList) {
+        int nrOnList;
+        STDOUT.info("Page nr {}/{} \n", pageCurrent, pagesAmount);
 
         for (int i = 1; i <= 7; i++) {
-            int nrOnList = (i + (7 * (pageCurrent - 1)));
+            nrOnList = (i + (7 * (pageCurrent - 1)));
             try {
-                STDOUT.info(nrOnList + " - " + mealsList.get(nrOnList) + "\n");
+                STDOUT.info("{} - {} \n", nrOnList, mealsList.get(nrOnList - 1));
             } catch (IndexOutOfBoundsException e) {
                 STDOUT.info(".. - ....................\n");
             }
@@ -49,6 +55,8 @@ public class DisplayMenu {
     }
 
     private static void displayChangePageMessage() {
+        String messageSwitchPage;
+
         if (pagesAmount == 1) {
             messageSwitchPage = "Press 'x' to move to previous menu.";
         } else if (pageCurrent == 1 && pageCurrent < pagesAmount) {
@@ -64,10 +72,26 @@ public class DisplayMenu {
         STDOUT.info("\n");
     }
 
-    private static void changePageOrExit() {
+    private static void changePageOrExit(List<String> mealsList) {
         input = scanner.nextLine();
+        int firstListNumber = 1 + ((pageCurrent - 1) * 7);
+        int lastListNumber = 7 + ((pageCurrent - 1) * 7);
 
-        if (input.equals("n") && pageCurrent < pagesAmount) {
+        if (isNumber(input)) {
+            int inputNr = Integer.parseInt(input);
+            if (inputNr >= firstListNumber && inputNr <= lastListNumber) {
+                try {
+                    STDOUT.info(displaySelectedMeals(mealsList, inputNr - 1));
+                    STDOUT.info("\nPress enter to get back to the Display Menu\n");
+                    DisplayMenu.input = scanner.nextLine();
+                } catch (IndexOutOfBoundsException e) {
+                    STDOUT.info("Please, choose the correct number \n");
+                }
+            } else {
+                Menu.wrongChoice();
+                STDOUT.info("\n");
+            }
+        } else if (input.equals("n") && pageCurrent < pagesAmount) {
             pageCurrent++;
         } else if (input.equals("p") && pageCurrent > 1) {
             pageCurrent--;
@@ -77,6 +101,42 @@ public class DisplayMenu {
             Menu.wrongChoice();
             STDOUT.info("\n");
         }
+    }
+
+    private static String displaySelectedMeals(List<String> mealsList, int inputNr) {
+        int optionNr = Integer.parseInt(SearchMenu.choice);
+        if (optionNr == 1) {
+            return displayOneMeal(mealsList, inputNr).toString();
+        } else if (optionNr == 2) {
+            return displayMealsByIngredient(mealsList, inputNr).toString();
+        } else {
+            return displayMealsByCategory(mealsList, inputNr).toString();
+        }
+    }
+
+    private static Meal displayOneMeal(List<String> mealsList, int inputNr) {
+        return listMeals.findMealByName(mealsList.get(inputNr))
+                .orElseThrow(() -> new NullPointerException("Meal not found"));
+    }
+
+    private static List<Meal> displayMealsByIngredient(List<String> mealsList, int inputNr) {
+        return new ArrayList<>(listMeals.findMealByIngredient(mealsList.get(inputNr)));
+    }
+
+    private static List<Meal> displayMealsByCategory(List<String> mealsList, int inputNr) {
+        return new ArrayList<>(listMeals.findMealByCategory(mealsList.get(inputNr)));
+    }
+
+    public static boolean isNumber(String input) {
+        if (input == null) {
+            return false;
+        }
+        try {
+            int number = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     private static int determinePagesAmount(Set<String> set) {

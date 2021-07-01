@@ -3,7 +3,6 @@ package pl.console.project.utils;
 import pl.console.project.model.ListMeal;
 import pl.console.project.model.Meal;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
